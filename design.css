@@ -1,0 +1,149 @@
+:root {
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container {
+  margin: 30px auto;
+  width: 350px;
+}
+
+h1 {
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+h3 {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin: 40px 0 10px;
+}
+
+h4 {
+  margin: 0;
+  text-align: uppercase;
+}
+
+.incomeExpenseContainer {
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.incomeExpenseContainer > div {
+  flex: 1;
+  text-align: center;
+}
+
+.incomeExpenseContainer > div:first-of-type {
+  border-right: 1px solid silver;
+}
+
+.money {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin: 5px 0;
+}
+
+.money.plus {
+  color: rgb(32, 176, 126);
+}
+
+.money.minus {
+  color: rgb(167, 50, 50);
+}
+
+label {
+  display: inline-block;
+  margin: 10px 0;
+}
+
+input[type='text'],
+input[type='number'] {
+  border: 1px solid rgb(132, 132, 132);
+  border-radius: 2px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+.btn {
+  background-color: rgb(12, 60, 139);
+  box-shadow: var(--box-shadow);
+  color: white;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  font-size: 20px;
+  margin: 10px 0 30px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.btn:focus,
+.delete-btn:focus {
+  outline: none;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+.list li {
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  color: rgb(8, 0, 35);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.list li.minus {
+  border-right: 5px solid rgb(167, 50, 50);
+}
+
+.list li.plus {
+  border-right: 5px solid rgb(32, 176, 126);
+}
+
+.delete-btn {
+  background-color: rgba(167, 50, 50);
+  border: 0;
+  color: #fff;
+  font-size: 20px;
+  line-height: 20px;
+  padding: 2px 5px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-100%, -50%);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.list li:hover .delete-btn {
+  opacity: 1;
+}
