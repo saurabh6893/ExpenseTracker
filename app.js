@@ -14,27 +14,6 @@ const dummyTransactions = [
 
 let transactions = dummyTransactions
 
-function addTransactionDom(transaction) {
-  const sign = transaction.amount < 0 ? '-' : '+'
-  const item = document.createElement('li')
-
-  item.classList.add(transaction.amount < 0 ? 'minus' : 'plus')
-
-  item.innerHTML = `${transaction.text} <span>${sign}${Math.abs(
-    transaction.amount
-  )}</span> <button class="delete-btn"></button>`
-
-  list.appendChild(item)
-}
-
-function init() {
-  list.innerHTML = ''
-  transactions.forEach(addTransactionDom)
-  updateValue()
-}
-
-init()
-
 function addTransaction(e) {
   e.preventDefault()
 
@@ -48,8 +27,9 @@ function addTransaction(e) {
     }
 
     transactions.push(transaction)
-    addTransaction(transaction)
+    addTransactionDom(transaction)
 
+    updateValue()
     text.value = ''
     amount.value = ''
   }
@@ -57,6 +37,25 @@ function addTransaction(e) {
 
 function generateId() {
   return Math.floor(Math.random() * 1000000)
+}
+function addTransactionDom(transaction) {
+  const sign = transaction.amount < 0 ? '-' : '+'
+  const item = document.createElement('li')
+
+  item.classList.add(transaction.amount < 0 ? 'minus' : 'plus')
+
+  item.innerHTML = `${transaction.text} <span>${sign}${Math.abs(
+    transaction.amount
+  )}</span> <button class="delete-btn" onclick="removeTransaction(${
+    transaction.id
+  })">X</button>`
+
+  list.appendChild(item)
+}
+
+function removeTransaction(id) {
+  transactions = transactions.filter((transaction) => transaction.id !== id)
+  init()
 }
 
 //Update Data
@@ -76,5 +75,12 @@ function updateValue() {
   moneyPlus.innerText = `${income} ₹`
   moneyMinus.innerText = `${expense} ₹`
 }
+function init() {
+  list.innerHTML = ''
+  transactions.forEach(addTransactionDom)
+  updateValue()
+}
+
+init()
 
 form.addEventListener('submit', addTransaction)
