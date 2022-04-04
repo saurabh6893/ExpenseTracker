@@ -35,6 +35,30 @@ function init() {
 
 init()
 
+function addTransaction(e) {
+  e.preventDefault()
+
+  if (text.value.trim() === '' || amount.value.trim() === '') {
+    alert('Please enter valid data')
+  } else {
+    const transaction = {
+      id: generateId(),
+      text: text.value,
+      amount: +amount.value,
+    }
+
+    transactions.push(transaction)
+    addTransaction(transaction)
+
+    text.value = ''
+    amount.value = ''
+  }
+}
+
+function generateId() {
+  return Math.floor(Math.random() * 1000000)
+}
+
 //Update Data
 function updateValue() {
   const amounts = transactions.map((transaction) => transaction.amount)
@@ -52,3 +76,5 @@ function updateValue() {
   moneyPlus.innerText = `${income} ₹`
   moneyMinus.innerText = `${expense} ₹`
 }
+
+form.addEventListener('submit', addTransaction)
