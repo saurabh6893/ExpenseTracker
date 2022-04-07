@@ -5,33 +5,32 @@ const form = document.getElementById('form')
 const text = document.getElementById('text')
 const amount = document.getElementById('amount')
 
-// const dummyTransactions = [
-//   { id: 1, text: 'flower', amount: -20 },
-//   { id: 2, text: 'salary', amount: 300 },
-//   { id: 3, text: 'books', amount: -10 },
-//   { id: 4, text: 'camera', amount: 150 },
-// ]
-
 const localStorageTransactions = JSON.parse(
   localStorage.getItem('transactions')
 )
 
+// the above Function grabs transactions are parses them in json format for the browser which helps to prevent data loss on refresh
+
 let transactions =
   localStorage.getItem('transactions') !== null ? localStorageTransactions : []
+//this is grab the transaction from LocalStorage and check if thats not NuLL, if its null it returns an Empty Array and if not the it returns LocalStorageTransactions
 
 function addTransaction(e) {
   e.preventDefault()
 
   if (text.value.trim() === '' || amount.value.trim() === '') {
     alert('Please enter valid data')
+    // the above alert will be prompted if the data isnt entered and Submit action is taken
   } else {
     const transaction = {
       id: generateId(),
       text: text.value,
       amount: +amount.value,
+      // using +amount.value we make sure its not a string
     }
 
     transactions.push(transaction)
+
     addTransactionDom(transaction)
 
     updateValue()
@@ -58,6 +57,8 @@ function addTransactionDom(transaction) {
   })">X</button>`
 
   list.appendChild(item)
+  //this functon will create an element in as a li -> give it a classname of + or - depending onthe type -> set the innerHTML of the list to Text entered and display its amount and - or + --> then it build a X button to the left of the li to give an option to delete  and AtLast
+  // ---> add The li to the List Box aka UL box
 }
 
 function removeTransaction(id) {
@@ -66,6 +67,8 @@ function removeTransaction(id) {
   updateLocalStorage()
 
   init()
+
+  // takes an Id of the transaction and removes it by filtering all the transactions and then updates the Data
 }
 
 function updateLocalStorage() {
@@ -88,11 +91,28 @@ function updateValue() {
   balance.innerText = `${total} ₹`
   moneyPlus.innerText = `${income} ₹`
   moneyMinus.innerText = `${expense} ₹`
+
+  rightVisibility()
 }
 function init() {
   list.innerHTML = ''
   transactions.forEach(addTransactionDom)
   updateValue()
+}
+
+//rightSide
+const rS = document.querySelector('.rightx')
+
+function rightVisibility() {
+  if (transactions.length == 0) {
+    rS.classList.add('dissapear')
+    rS.classList.remove('BigBox')
+  } else if (transactions.length > 0 && transactions.length < 6) {
+    rS.classList.remove('dissapear')
+    rS.classList.remove('BigBox')
+  } else {
+    rS.classList.add('BigBox')
+  }
 }
 
 init()
